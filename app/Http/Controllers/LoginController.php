@@ -16,11 +16,18 @@ class LoginController extends Controller
         ]);
 
         if( !Auth::attempt( $login )) {
-            return response(['message' => 'Invalid Credintials']);
+            return response([
+                'status_code' => '401',
+                'message' => 'Invalid Credintials'
+            ]);
         }
 
         $accessToken = Auth::user()->createToken('authToken')->accessToken;
 
-        return response(['user' => Auth::user(), 'acccess_token' => $accessToken]);
+        return response([
+            'status_code' => 200,
+            'user' => Auth::user(),
+            'acccess_token' => $accessToken
+        ]);
     }
 }
