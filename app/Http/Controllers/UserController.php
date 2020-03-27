@@ -14,7 +14,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        
+        return response([
+            'status_code' => 200,
+             'users' => User::all()
+        ]);
     }
 
     /**
@@ -35,7 +39,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string',
+            'mobile_number' => 'required|numeric',
+            'password' => 'required|string',
+            'permission_id' => 'required',
+        ]);
+
+        User::create($validated);
+
+        return response([
+            'status_code' => 200,
+            'msg' => 'User added successfully'
+        ]);
     }
 
     /**
@@ -46,7 +63,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return response([
+            'status_code' => 200,
+             'user' => $user
+        ]);
     }
 
     /**
@@ -81,5 +101,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+
+        $user->delete();
+
+        return response([
+            'status_code' => 200,
+            'msg' => 'User deleted successfully'
+        ]);
     }
 }

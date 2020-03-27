@@ -27,7 +27,7 @@ class LoginController extends Controller
         return response([
             'status_code' => 200,
             'user' => Auth::user(),
-            'acccess_token' => $accessToken
+            'access_token' => $accessToken
         ]);
     }
 }
